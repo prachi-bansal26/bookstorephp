@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css" crossorigin="anonymous">
     <title>BookStore</title>
   </head>
   <body>
@@ -30,56 +30,50 @@
         </div>
     </nav>
 
-    <!-- Bootstrap Slider -->
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="images/slide1.jpg" class="d-block w-100" alt="Winter Sale">
-            </div>
-            <div class="carousel-item">
-            <img src="images/slide2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-            <img src="images/slide3.jpg" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-    <!-- Book Highlights -->
+    <!-- Book List -->
     <div class="container-fluid">
-        <h1 class="text-center m-3 display-3"><span class="border-bottom"><em>Discover</em> Your Next Book</span></h1>
+        <h1 class="m-3 display-3"><span class="border-bottom"><em>Explore</em> the List of Books</span></h1>
         <div class="container">
             <div class="row">
 
                 <?php
                     require('mysqli_oop_connect.php');
-                    $book_q = "SELECT * FROM bookinventory LIMIT 4";
+                    $book_q = "SELECT * FROM bookinventory";
                     if($book_r = $dbc->query($book_q)) {
                         while($book_row = $book_r->fetch_assoc()) {
-                            echo '<div class="col-md">
-                                    <div class="card">
-                                        <img src="images/'.$book_row['book_img'].'" class="card-img-top" alt="'.$book_row['book_name'].'">
-                                        <div class="card-body">
-                                            <h5 class="card-title">'.$book_row['book_name'].'</h5>
-                                            <h6> $'.$book_row['book_price'].'</h6>
-                                            <p class="card-text">'.$book_row['book_author'].'</p>
-                                            <a href="#" class="btn btn-primary">View More</a>
+                            $rating ='';
+                            for($i=0; $i<$book_row['book_rating']; $i++) {
+                                $rating .='<i class="fa fa-star"></i>';
+                            }
+                            for($i=0; $i < 5-$book_row['book_rating']; $i++) {
+                                $rating .='<i class="fa fa-star-o"></i>';
+                            }
+
+
+                            echo '<div class="col-md-12">
+                                    <div class="card mb-3">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <img src="images/'.$book_row['book_img'].'" alt="'.$book_row['book_name'].'" class="img-fluid">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">'.$book_row['book_name'].'</h5>
+                                                    <h5>'.$rating.'</h5>
+                                                    <h6> $'.$book_row['book_price'].'</h6>
+                                                    <p class="card-text">'.$book_row['book_author'].'</p>
+                                                    <p class="card-text">'.$book_row['book_description'].'</p>
+                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                </div>
+                                                </div>
                                         </div>
+                                        
                                     </div>
                                 </div>';
                         }
                     }
 
                 ?>
-                
             </div>
         </div>
     </div>
