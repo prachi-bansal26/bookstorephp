@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css" crossorigin="anonymous">
     <title>BookStore</title>
   </head>
   <body>
@@ -63,7 +63,6 @@
                                                     <h6> $'.$book_row['book_price'].'</h6>
                                                     <p class="card-text">'.$book_row['book_author'].'</p>
                                                     <p class="card-text">'.$book_row['book_description'].'</p>
-                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                                 </div>
                                                 </div>
                                         </div>
