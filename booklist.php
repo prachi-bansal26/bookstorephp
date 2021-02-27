@@ -63,6 +63,7 @@
                                                     <h6> $'.$book_row['book_price'].'</h6>
                                                     <p class="card-text">'.$book_row['book_author'].'</p>
                                                     <p class="card-text">'.$book_row['book_description'].'</p>
+                                                    <a href="shop_form.php" class="btn btn-primary">Buy Now</a>
                                                 </div>
                                                 </div>
                                         </div>
@@ -77,6 +78,7 @@
         </div>
     </div>
 
+    <!-- Bootstrap Footer -->
     <div class="container-fluid p-4 text-center bg-dark text-white">
         &copy; Copyright 2021. All Rights Reserved.
     </div>

@@ -84,6 +84,7 @@
         </div>
     </div>
 
+    <!-- Bootstrap Footer -->
     <div class="container-fluid p-4 text-center bg-dark text-white">
         &copy; Copyright 2021. All Rights Reserved.
     </div>
