@@ -8,12 +8,22 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" crossorigin="anonymous">
     <title>BookStore</title>
-    <style>
-        .col-form-label {
-            margin-bottom: 10px;
+    <script type="text/javascript">
+        function checkcard(){
+            $('input[name="bookPaymentMethod"]').click(function(){
+                if ($(this).is(':checked'))
+                {
+                    if($(this).val() == "Cash") {
+                        $("#CardDetails").hide();
+                    } else {
+                        $("#CardDetails").show();
+                    }
+                }
+            });
         }
-    </style>
+    </script>
   </head>
   <body>
     <!-- Bootstrap Navbar -->
@@ -53,7 +63,7 @@
                         </div>
                         <label for="bookName" class="col-sm-2 col-form-label">Book Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bookName" name="bookName">
+                            <input type="text" class="form-control" id="bookName" name="bookName" readonly>
                         </div>
                         <label for="bookPrice" class="col-sm-2 col-form-label">Book Price</label>
                         <div class="col-sm-10">
@@ -73,6 +83,38 @@
                                 }
                             ?>
                             </select>
+                        </div>
+                        <label for="bookPaymentMethod" class="col-sm-2 col-form-label">Payment Method</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio1" value="Cash" onclick="checkcard()">
+                            <label class="form-check-label" for="inlineRadio1">Cash</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio2" value="Credit/Debit" onclick="checkcard()">
+                            <label class="form-check-label" for="inlineRadio2">Credit/Debit</label>
+                        </div>
+
+                        <div id="CardDetails" style="display:none">
+                        
+                            <label for="cardName" class="col-sm-2 col-form-label">Card Holder Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cardName" name="cardName">
+                            </div>
+
+                            <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="12">
+                            </div>
+
+                            <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+                            </div>
+
+                            <label for="cardCVV" class="col-sm-2 col-form-label">Card CVV</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="cardCVV" name="cardCVV" maxlength="3">
+                            </div>
                         </div>
 
                         <div class="col-sm-12 text-center">
