@@ -1,3 +1,13 @@
+<?php
+    session_start(); 
+    require("mysqli_oop_connect.php");
+    $book_q = "SELECT book_name, book_price from bookinventory WHERE book_id = ".$_SESSION['bid'];
+    $book_r = $dbc->query($book_q);
+    $book_row1 = $book_r->fetch_assoc();
+    $book_name = $book_row1['book_name'];
+    $book_pricing = $book_row1['book_price'];
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -77,11 +87,11 @@
                         </div>
                         <label for="bookName" class="col-sm-2 col-form-label">Book Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bookName" name="bookName" readonly>
+                            <input type="text" class="form-control" id="bookName" name="bookName" readonly value="<?php echo $book_name;?>">
                         </div>
                         <label for="bookPrice" class="col-sm-2 col-form-label">Book Price</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bookPrice" readonly name="bookPrice">
+                            <input type="text" class="form-control" id="bookPrice" readonly name="bookPrice" value="<?php echo $book_pricing;?>">
                         </div>
                         <label for="bookQuantity" class="col-sm-2 col-form-label">Book Quantity</label>
                         <div class="col-sm-10">
@@ -89,7 +99,7 @@
 
                             <?php
                                 require("mysqli_oop_connect.php");
-                                $book_sql = "SELECT book_quantity from bookinventory WHERE book_id = 1";
+                                $book_sql = "SELECT book_quantity from bookinventory WHERE book_id = '".$_SESSION['bid']."'";
                                 $book_result = $dbc->query($book_sql);
                                 $book_row = $book_result->fetch_assoc();
                                 for($i=1; $i<=$book_row['book_quantity']; $i++) {

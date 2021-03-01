@@ -1,3 +1,11 @@
+<?php
+if(isset($_GET['bid'])) {
+    session_start();
+    $_SESSION['bid'] = $_GET['bid'];
+    header("Location:shop_form.php");
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -63,11 +71,10 @@
                                                     <h6> $'.$book_row['book_price'].'</h6>
                                                     <p class="card-text">'.$book_row['book_author'].'</p>
                                                     <p class="card-text">'.$book_row['book_description'].'</p>
-                                                    <a href="shop_form.php" class="btn btn-primary">Buy Now</a>
+                                                    <a href="booklist.php?bid='.$book_row['book_id'].'" class="btn btn-primary">Buy Now</a>
                                                 </div>
-                                                </div>
-                                        </div>
-                                        
+                                            </div>
+                                        </div>    
                                     </div>
                                 </div>';
                         }

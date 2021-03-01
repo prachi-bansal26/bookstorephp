@@ -6,9 +6,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $first_name = $dbc->real_escape_string(trim($_POST['firstName']));
     $last_name = $dbc->real_escape_string(trim($_POST['lastName']));
     $payment_method = filter_var($_POST['bookPaymentMethod'], FILTER_SANITIZE_STRING);
-    $book_id = filter_var($_SESSION['book_id'], FILTER_SANITIZE_NUMBER_INT);
+    $book_id = filter_var($_SESSION['bid'], FILTER_SANITIZE_NUMBER_INT);
     $quantity_ordered = filter_var($_POST['bookQuantity'], FILTER_SANITIZE_NUMBER_INT);
-    $order_amount = $_POST[''];
+    
     $card_number = filter_var($_POST['cardNumber'], FILTER_SANITIZE_STRING);
     $card_name = filter_var($_POST['cardName'], FILTER_SANITIZE_STRING);
     $card_expiry = $_POST['cardExpiry'];
@@ -73,6 +73,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         echo '</div>';
         die();
     } else {
+        $order_price_q = "SELECT book_price FROM bookinventory WHERE book_id = '$book_id'";
+        $order_price_r = $dbc->query($order_price_q);
+        if($order_price_r->num_rows > 0) {
+            $order_price_row = $order_price_r->fetch_assoc();
+            $order_amount = $order_price_row['book_price'] * $quantity_ordered;
+        } 
+
         $insert_q = "INSERT INTO orders_info VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $dbc->prepare($insert_q);
 
@@ -82,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if($stmt_exec) {
             //reduce quantity
-            $update_quantity = "UPDATE bookinventory SET book_quantity = WHERE book_id = '$book_id'";
+            $update_quantity = "UPDATE bookinventory SET book_quantity = book_quantity-".$quantity_ordered." WHERE book_id = '$book_id'";
             $update_quantity_r = $dbc->query($update_quantity);
             if($update_quantity_r) {
                 echo '<div class="alert alert-success" role="alert">
@@ -94,6 +101,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
                     Some Error Occured
                   </div>';
         }
+        $dbc->close();
     }  
 }
 ?>
