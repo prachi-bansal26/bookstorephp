@@ -10,19 +10,32 @@
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" crossorigin="anonymous">
     <title>BookStore</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    
     <script type="text/javascript">
-        function checkcard(){
-            $('input[name="bookPaymentMethod"]').click(function(){
-                if ($(this).is(':checked'))
-                {
-                    if($(this).val() == "Cash") {
+    $(function() {
+            $('input:radio[name="bookPaymentMethod"]').change(function(){
+                //alert($(this).val());
+                if($(this).val() == "Cash") {
                         $("#CardDetails").hide();
                     } else {
                         $("#CardDetails").show();
                     }
-                }
             });
-        }
+      
+        $('#formbutton').click(function(e) {
+            //alert("hi");
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: 'place_order.php',
+                data: $('#order_form').serialize(),
+                success: function(res){
+                   $("#success_msg").html(res);
+                }
+            });    
+        });
+    });
     </script>
   </head>
   <body>
@@ -51,7 +64,8 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="display-3 text-center"><span class="border-bottom">Checkout</span></h3>
-                <form method="POST" action="place_order.php">
+                <div id="success_msg"></div>
+                <form method="POST" id="order_form">
                     <div class="form-group row">
                         <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
@@ -86,15 +100,15 @@
                         </div>
                         <label for="bookPaymentMethod" class="col-sm-2 col-form-label">Payment Method</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio1" value="Cash" onclick="checkcard()">
-                            <label class="form-check-label" for="inlineRadio1">Cash</label>
+                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio1" value="Cash" checked >
+                            <label class="form-check-label" for="inlineRadio1" >Cash</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio2" value="Credit/Debit" onclick="checkcard()">
+                            <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio2" value="Credit/Debit">
                             <label class="form-check-label" for="inlineRadio2">Credit/Debit</label>
                         </div>
 
-                        <div id="CardDetails" style="display:none">
+                        <div class="row" id="CardDetails" style="display:none">
                         
                             <label for="cardName" class="col-sm-2 col-form-label">Card Holder Name</label>
                             <div class="col-sm-10">
@@ -118,7 +132,7 @@
                         </div>
 
                         <div class="col-sm-12 text-center">
-                            <input type="submit" value="Place Order" class="btn btn-primary" />
+                            <button type="button" class="btn btn-primary" id="formbutton"> Place Order</button>
                         </div>
                     </div>
                 </form>
@@ -131,7 +145,7 @@
         &copy; Copyright 2021. All Rights Reserved.
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+   
     <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>   
   </body>
 </html>
