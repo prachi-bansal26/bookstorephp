@@ -103,12 +103,12 @@
 
                             <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="12">
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="19" placeholder="XXXX-XXXX-XXXX-XXXX">
                             </div>
 
-                            <label for="cardNumber" class="col-sm-2 col-form-label">Card Number</label>
+                            <label for="cardExpiry" class="col-sm-2 col-form-label">Card Expiry</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="cardNumber" name="cardNumber">
+                                <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" placeholder="MM/YY">
                             </div>
 
                             <label for="cardCVV" class="col-sm-2 col-form-label">Card CVV</label>
