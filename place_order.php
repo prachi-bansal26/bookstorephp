@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             $error = true;
             $errors[] = "Card Number is empty";
         } else {
-            if(!preg_match('^[0-9]{4}[-]+[0-9]{4}[-]+[0-9]{4}[-]+[0-9]{4}$', $card_number)) {
+            if(!preg_match('/^[0-9]{4}[-]+[0-9]{4}[-]+[0-9]{4}[-]+[0-9]{4}$/', $card_number)) {
                 $error = true;
                 $errors[] = "Enter a valid Card Number";
             }
@@ -55,6 +55,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         if(!isset($card_expiry) || empty($card_expiry)) {
             $error = true;
             $errors[] = "Card Expiry is empty";
+        } else {
+            if(!preg_match('/^([0][0-9]|[1][0-2])[-]+[0-9]{2}$/', $card_number)) {
+                $error = true;
+                $errors[] = "Enter a valid Card Expiry Date";
+            }
         }
 
         if(!isset($card_cvv) || empty($card_cvv)) {
@@ -66,6 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if($error) {
+        //echo the error if some are there
         echo '<div class="alert alert-danger" role="alert">';
         foreach($errors as $err_msg) {
             echo "<p class='text-danger'>$err_msg</p>";
@@ -80,6 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             $order_amount = $order_price_row['book_price'] * $quantity_ordered;
         } 
 
+        //insert order info using PDO
         $insert_q = "INSERT INTO orders_info VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $dbc->prepare($insert_q);
 

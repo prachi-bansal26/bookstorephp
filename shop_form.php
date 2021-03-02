@@ -1,6 +1,7 @@
 <?php
     session_start(); 
-    require("mysqli_oop_connect.php");
+    require_once("mysqli_oop_connect.php");
+    //fetching book details using session variable
     $book_q = "SELECT book_name, book_price from bookinventory WHERE book_id = ".$_SESSION['bid'];
     $book_r = $dbc->query($book_q);
     $book_row1 = $book_r->fetch_assoc();
@@ -20,19 +21,20 @@
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" crossorigin="anonymous">
     <title>BookStore</title>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
     
     <script type="text/javascript">
     $(function() {
-            $('input:radio[name="bookPaymentMethod"]').change(function(){
-                //alert($(this).val());
-                if($(this).val() == "Cash") {
-                        $("#CardDetails").hide();
-                    } else {
-                        $("#CardDetails").show();
-                    }
-            });
-      
+        $('input:radio[name="bookPaymentMethod"]').change(function(){
+            //alert($(this).val());
+            if($(this).val() == "Cash") {
+                $("#CardDetails").hide();
+            } else {
+                $("#CardDetails").show();
+            }
+        });
+        
+        //submitting a form using AJAX Request    
         $('#formbutton').click(function(e) {
             //alert("hi");
             e.preventDefault();
@@ -48,6 +50,7 @@
     });
     </script>
   </head>
+
   <body>
     <!-- Bootstrap Navbar -->
     <nav class="navbar sticky-top navbar-expand-lg navbar-white bg-white border-bottom">
@@ -74,7 +77,10 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="display-3 text-center"><span class="border-bottom">Checkout</span></h3>
+                <!-- Div to show the error or success messages -->
                 <div id="success_msg"></div>
+
+                <!-- Form -->
                 <form method="POST" id="order_form">
                     <div class="form-group row">
                         <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
@@ -98,6 +104,7 @@
                             <select id="bookQuantity" class="form-control" name="bookQuantity">
 
                             <?php
+                                //fetching book quantity from db
                                 require("mysqli_oop_connect.php");
                                 $book_sql = "SELECT book_quantity from bookinventory WHERE book_id = '".$_SESSION['bid']."'";
                                 $book_result = $dbc->query($book_sql);
@@ -117,9 +124,8 @@
                             <input class="form-check-input" type="radio" name="bookPaymentMethod" id="inlineRadio2" value="Credit/Debit">
                             <label class="form-check-label" for="inlineRadio2">Credit/Debit</label>
                         </div>
-
+                        <!-- Card details div; if not selected its hidden -->
                         <div class="row" id="CardDetails" style="display:none">
-                        
                             <label for="cardName" class="col-sm-2 col-form-label">Card Holder Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="cardName" name="cardName">
@@ -132,7 +138,7 @@
 
                             <label for="cardExpiry" class="col-sm-2 col-form-label">Card Expiry</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" placeholder="MM/YY">
+                                <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" placeholder="MM-YY">
                             </div>
 
                             <label for="cardCVV" class="col-sm-2 col-form-label">Card CVV</label>

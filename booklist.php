@@ -1,5 +1,6 @@
 <?php
 if(isset($_GET['bid'])) {
+    //setting session on click of buy now button
     session_start();
     $_SESSION['bid'] = $_GET['bid'];
     header("Location:shop_form.php");
@@ -16,6 +17,7 @@ if(isset($_GET['bid'])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" crossorigin="anonymous">
     <title>BookStore</title>
   </head>
   <body>

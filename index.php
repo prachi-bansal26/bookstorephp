@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/style.css" crossorigin="anonymous">
     <title>BookStore</title>
   </head>
   <body>
@@ -60,6 +60,7 @@
             <div class="row">
 
                 <?php
+                    //show 4 books on the front page
                     require('mysqli_oop_connect.php');
                     $book_q = "SELECT * FROM bookinventory LIMIT 4";
                     if($book_r = $dbc->query($book_q)) {
@@ -71,7 +72,7 @@
                                             <h5 class="card-title">'.$book_row['book_name'].'</h5>
                                             <h6> $'.$book_row['book_price'].'</h6>
                                             <p class="card-text">'.$book_row['book_author'].'</p>
-                                            <a href="#" class="btn btn-primary">View More</a>
+                                            <a href="booklist.php" class="btn btn-primary">View More</a>
                                         </div>
                                     </div>
                                 </div>';
