@@ -87,7 +87,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         } 
 
         //insert order info using PDO
-        $insert_q = "INSERT INTO orders_info VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert_q = "INSERT INTO orders_info VALUES(default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)";
         $stmt = $dbc->prepare($insert_q);
 
         $stmt->bind_param("sssiisssss", $first_name, $last_name, $payment_method, $book_id, $quantity_ordered, $order_amount, $card_name, $card_number, $card_expiry, $card_cvv);
