@@ -20,11 +20,21 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     if(!isset($first_name) || empty($first_name)) {
         $error = true;
         $errors[] = "First Name is empty";
+    }else {
+        if(!preg_match('/^[a-zA-Z]{2,}$/', $first_name)) {
+            $error = true;
+            $errors[] = "Enter a valid First Name.<br/>";
+        }
     }
 
     if(!isset($last_name) || empty($last_name)) {
         $error = true;
         $errors[] = "Last Name is empty";
+    }else {
+        if(!preg_match('/^[a-zA-Z]{2,}$/', $last_name)) {
+            $error = true;
+            $errors[] = "Enter a valid Last Name.<br/>";
+        }
     }
 
     if(!isset($payment_method) || empty($payment_method)) {
